@@ -1,0 +1,5 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <stroke android:width="2dp" android:color="@color/primary"/>
+    <solid android:color="@color/primaryContainer"/> <!-- Arkaplan rengi -->
+    <corners android:bottomLeftRadius="30dp" android:bottomRightRadius="30dp"/> <!-- Köşe yarıçapları -->
+</shape>

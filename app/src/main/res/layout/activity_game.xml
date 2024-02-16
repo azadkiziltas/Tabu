@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ui.GameActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background"
+        android:elevation="10dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="20dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_height="120dp"
+                android:layout_weight="1">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+
+                    android:layout_above="@+id/bottomContainer">
+
+                    <LinearLayout
+                        android:background="@drawable/top_corner_background_true_medium"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:id="@+id/textViewTeamA"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/protest"
+                            android:text="TAKIM A"
+                            android:layout_gravity="center"
+                            android:textAlignment="center"
+                            android:textColor="@color/primaryContainer3"
+                            android:textSize="22sp" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:background="@drawable/bottom_corner_medium"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/textViewScoreTeamA"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/protest"
+                            android:text="12+1"
+                            android:paddingBottom="10dp"
+                            android:layout_gravity="center"
+                            android:textAlignment="center"
+                            android:textColor="@color/trueColor"
+                            android:textSize="44sp" />
+
+                    </LinearLayout>
+
+
+
+
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:id="@+id/pauseButton"
+                        android:layout_marginHorizontal="10dp"
+                        android:backgroundTint="@color/secondary"
+                        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Large"
+                        app:strokeWidth="0dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:orientation="vertical">
+
+
+                            <TextView
+                                android:id="@+id/textViewTime"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/protest_guerrilla_regular"
+                                android:text="120"
+                                android:textAlignment="center"
+                                android:textColor="@color/primaryContainer3"
+                                android:textSize="46sp" />
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:src="@drawable/pause" />
+
+
+                        </LinearLayout>
+
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                android:layout_height="120dp"
+                android:layout_weight="1">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+
+                    android:layout_above="@+id/bottomContainer">
+
+                    <LinearLayout
+                        android:background="@drawable/top_corner_background_secondary_medium"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2">
+
+                        <TextView
+                            android:id="@+id/textViewTeamB"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/protest"
+                            android:text="TAKIM B"
+                            android:layout_gravity="center"
+                            android:textAlignment="center"
+                            android:textColor="@color/primaryContainer3"
+                            android:textSize="22sp" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:background="@drawable/bottom_corner_medium"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/textViewScoreTeamB"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/protest"
+                            android:text="12"
+                            android:paddingBottom="10dp"
+
+                            android:layout_gravity="center"
+                            android:textAlignment="center"
+                            android:textColor="@color/secondary"
+                            android:textSize="44sp" />
+
+                    </LinearLayout>
+
+
+
+
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:background="@drawable/top_corner"
+            android:elevation="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/bottomContainer"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginVertical="5dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/top_corner_background_primary"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:id="@+id/textViewWord"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/protest"
+                            android:text="DUVAR"
+                            android:textAlignment="center"
+                            android:textColor="@color/primaryContainer3"
+                            android:textSize="36sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bottom_corner_stroke"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/textViewTabu1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/protest"
+                                android:text="BETON"
+                                android:textAlignment="center"
+                                android:textColor="@color/primary"
+                                android:textSize="28sp" />
+
+                            <TextView
+                                android:id="@+id/textViewTabu2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/protest"
+                                android:text="YALITIM"
+                                android:textAlignment="center"
+                                android:textColor="@color/primary"
+                                android:textSize="28sp" />
+
+                            <TextView
+                                android:id="@+id/textViewTabu3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/protest"
+                                android:text="PENCERE"
+                                android:textAlignment="center"
+                                android:textColor="@color/primary"
+                                android:textSize="28sp" />
+
+                            <TextView
+                                android:id="@+id/textViewTabu4"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/protest"
+                                android:text="TUĞLA"
+                                android:textAlignment="center"
+                                android:textColor="@color/primary"
+                                android:textSize="28sp" />
+
+                            <TextView
+                                android:id="@+id/textViewTabu5"
+
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/protest"
+                                android:text="BAHÇE"
+                                android:textAlignment="center"
+                                android:textColor="@color/primary"
+                                android:textSize="28sp"
+                                android:layout_marginBottom="10dp"
+                                />
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+
+
+            <RelativeLayout
+                android:id="@+id/bottomContainer"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_alignParentBottom="true">
+
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    app:strokeColor="@color/primary"
+                    android:backgroundTint="@color/primaryContainer"
+                    app:strokeWidth="2dp">
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center">
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/tabuButton"
+                            android:layout_width="100dp"
+                            android:layout_height="60dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="10dp"
+                            android:background="@drawable/button_shape_secondary"
+                            android:elevation="8dp"
+                            android:fontFamily="@font/protest"
+                            android:text="TABU"
+                            android:textColor="@color/primaryContainer3"
+                            android:textSize="24sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent">
+
+                        </androidx.appcompat.widget.AppCompatButton>
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/passButtton"
+                            android:layout_width="100dp"
+                            android:layout_height="60dp"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/button_shape_primary"
+                            android:elevation="8dp"
+                            android:fontFamily="@font/protest"
+                            android:text="PAS (3)"
+                            android:textColor="@color/primaryContainer3"
+                            android:textSize="24sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent">
+
+                        </androidx.appcompat.widget.AppCompatButton>
+
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/trueButton"
+                            android:layout_width="100dp"
+                            android:layout_height="60dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginRight="10dp"
+                            android:background="@drawable/button_shape_true"
+                            android:elevation="8dp"
+                            android:fontFamily="@font/protest"
+                            android:text="DOĞRU"
+                            android:textColor="@color/primaryContainer3"
+                            android:textSize="24sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent">
+
+                        </androidx.appcompat.widget.AppCompatButton>
+                    </RelativeLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+            </RelativeLayout>
+
+
+
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

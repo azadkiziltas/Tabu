@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context="ui.HomePageActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- İlk yarıyı kaplayacak container -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/protest_guerrilla_regular"
+                android:text="TABU OYNA"
+
+                android:textColor="@color/primaryContainer3"
+                android:textSize="50sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </TextView>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- İkinci yarıyı kaplayacak container -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:background="@drawable/top_corner">
+
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textField"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:hint="Takım 1"
+                    app:boxBackgroundColor="@color/primaryContainer3"
+                    app:boxStrokeWidth="0dp"
+                    app:boxStrokeWidthFocused="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Large">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editText1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:inputType="text"
+                        android:maxLength="16"
+                        android:textColorHighlight="@color/primaryContainer" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textField2"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="30dp"
+                    android:background="@drawable/textfield_shape"
+                    android:hint="Takım 2"
+                    app:boxBackgroundColor="@color/primaryContainer3"
+                    app:boxStrokeWidth="0dp"
+                    app:boxStrokeWidthFocused="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textField"
+                    app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Large">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/editText2"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:maxLength="16"
+                        android:textColorHighlight="@color/primaryContainer" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="30dp"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textField2">
+
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_alignParentStart="true"
+                        android:layout_width="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginRight="10dp"
+                            android:text="Süre (sn)"
+                            android:textColor="@color/primary"
+                            android:textSize="16sp">
+
+                        </TextView>
+
+
+                        <com.google.android.material.button.MaterialButtonToggleGroup
+                            android:layout_alignParentEnd="true"
+
+                            android:id="@+id/toggleButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:selectionRequired="true"
+                            app:singleSelection="true">
+
+                            <Button
+                                android:id="@+id/button1"
+                                style="?attr/materialButtonOutlinedStyle"
+                                android:layout_width="80dp"
+                                android:layout_height="wrap_content"
+                                android:text="60"
+                                android:backgroundTint="@color/primaryContainer3"
+                                app:strokeColor="@color/md_theme_light_outlineVariant" />
+
+                            <Button
+                                android:id="@+id/button2"
+                                style="?attr/materialButtonOutlinedStyle"
+                                android:layout_width="80dp"
+                                android:layout_height="wrap_content"
+
+                                android:backgroundTint="@color/primaryContainer3"
+                                android:text="90"
+                                app:strokeColor="@color/md_theme_light_outlineVariant" />
+
+                            <Button
+                                android:id="@+id/button3"
+                                style="?attr/materialButtonOutlinedStyle"
+                                android:layout_width="80dp"
+                                android:layout_height="wrap_content"
+
+                                android:backgroundTint="@color/primaryContainer3"
+                                android:text="120"
+                                app:strokeColor="@color/md_theme_light_outlineVariant" />
+
+
+                        </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_alignParentStart="true"
+                            android:layout_width="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginRight="10dp"
+                            android:text="Pas Hakkı"
+                            android:textColor="@color/primary"
+                            android:textSize="16sp">
+
+                        </TextView>
+
+
+                        <com.google.android.material.button.MaterialButtonToggleGroup
+                            android:layout_alignParentEnd="true"
+
+                            android:id="@+id/toggleButton2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:selectionRequired="true"
+                            app:singleSelection="true">
+
+                            <Button
+                                android:id="@+id/button4"
+                                style="?attr/materialButtonOutlinedStyle"
+                                android:layout_width="80dp"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="@color/primaryContainer3"
+                                android:enabled="true"
+                                android:text="2"
+                                app:strokeColor="@color/md_theme_light_outlineVariant" />
+
+                            <Button
+                                android:id="@+id/button5"
+                                style="?attr/materialButtonOutlinedStyle"
+                                android:layout_width="80dp"
+                                android:layout_height="wrap_content"
+
+                                android:backgroundTint="@color/primaryContainer3"
+                                android:text="3"
+                                app:strokeColor="@color/md_theme_light_outlineVariant" />
+
+                            <Button
+                                android:id="@+id/button6"
+                                style="?attr/materialButtonOutlinedStyle"
+                                android:layout_width="80dp"
+                                android:layout_height="wrap_content"
+
+                                android:backgroundTint="@color/primaryContainer3"
+                                android:text="6"
+                                app:strokeColor="@color/md_theme_light_outlineVariant" />
+
+
+                        </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_alignParentStart="true"
+                            android:layout_width="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginRight="10dp"
+                            android:text="Bitiş Skoru"
+                            android:textColor="@color/primary"
+                            android:textSize="16sp">
+
+                        </TextView>
+
+
+                        <com.google.android.material.button.MaterialButtonToggleGroup
+                            android:layout_alignParentEnd="true"
+
+                            android:id="@+id/toggleButton3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:selectionRequired="true"
+                            app:singleSelection="true">
+
+                            <Button
+                                android:id="@+id/button7"
+                                style="?attr/materialButtonOutlinedStyle"
+                                android:layout_width="80dp"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="@color/primaryContainer3"
+                                android:enabled="true"
+                                android:text="10"
+                                app:strokeColor="@color/md_theme_light_outlineVariant" />
+
+                            <Button
+                                android:id="@+id/button8"
+                                style="?attr/materialButtonOutlinedStyle"
+                                android:layout_width="80dp"
+                                android:layout_height="wrap_content"
+
+                                android:backgroundTint="@color/primaryContainer3"
+                                android:text="16"
+                                app:strokeColor="@color/md_theme_light_outlineVariant" />
+
+                            <Button
+                                android:id="@+id/button9"
+                                style="?attr/materialButtonOutlinedStyle"
+                                android:layout_width="80dp"
+                                android:layout_height="wrap_content"
+
+                                android:backgroundTint="@color/primaryContainer3"
+                                android:text="24"
+                                app:strokeColor="@color/md_theme_light_outlineVariant" />
+
+
+                        </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_alignParentStart="true"
+                            android:layout_width="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginRight="10dp"
+                            android:text="Başlangıç Sırası"
+                            android:textColor="@color/primary"
+                            android:textSize="16sp">
+
+                        </TextView>
+
+                        <com.google.android.material.button.MaterialButtonToggleGroup
+                            android:id="@+id/toggleButton4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            app:selectionRequired="true"
+                            app:singleSelection="true">
+
+                            <Button
+                                android:id="@+id/button10"
+                                style="?attr/materialButtonOutlinedStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="@color/primaryContainer3"
+                                android:text="Takım 1"
+                                app:strokeColor="@color/md_theme_light_outlineVariant" />
+
+                            <Button
+                                android:id="@+id/button11"
+                                style="?attr/materialButtonOutlinedStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="@color/primaryContainer3"
+                                android:text="Takım 2"
+                                app:strokeColor="@color/md_theme_light_outlineVariant" />
+                        </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/startButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_margin="30dp"
+                    android:layout_marginBottom="28dp"
+                    android:background="@drawable/button_shape_secondary"
+                    android:elevation="8dp"
+                    android:fontFamily="@font/protest_guerrilla_regular"
+                    android:text="@string/start_button_text"
+                    android:textColor="@color/primaryContainer3"
+                    android:textSize="26sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                </androidx.appcompat.widget.AppCompatButton>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
