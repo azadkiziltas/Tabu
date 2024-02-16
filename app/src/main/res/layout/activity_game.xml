@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ui.GameActivity">
+    tools:context="ui.GamePageActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -41,6 +41,7 @@
                     android:layout_above="@+id/bottomContainer">
 
                     <LinearLayout
+                        android:id="@+id/teamOneBackground"
                         android:background="@drawable/top_corner_background_true_medium"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -160,6 +161,7 @@
                     android:layout_above="@+id/bottomContainer">
 
                     <LinearLayout
+                        android:id="@+id/teamTwoBackground"
                         android:background="@drawable/top_corner_background_secondary_medium"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -215,12 +217,13 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="10"
             android:background="@drawable/top_corner"
-            android:elevation="10dp">
+            >
 
             <RelativeLayout
+                android:background="@drawable/top_corner"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_above="@+id/bottomContainer"
@@ -228,7 +231,6 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
-                android:layout_marginBottom="20dp"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -317,16 +319,35 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/protest"
+                                android:paddingBottom="5dp"
                                 android:text="BAHÇE"
                                 android:textAlignment="center"
                                 android:textColor="@color/primary"
-                                android:textSize="28sp"
-                                android:layout_marginBottom="10dp"
-                                />
+                                android:textSize="28sp" />
+
                         </LinearLayout>
 
 
                     </LinearLayout>
+
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_below="@+id/textView"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="center"
+                        android:layout_margin="20dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/progress_bar_background"
+                        android:indeterminate="false"
+                        android:max="100"
+                        android:padding="4dp"
+                        android:progress="100"
+                        android:progressDrawable="@drawable/curved_progress_bar"
+
+                        />
                 </LinearLayout>
 
 

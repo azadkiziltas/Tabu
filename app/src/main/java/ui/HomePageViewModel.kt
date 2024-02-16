@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import data.LocalDatabase
 import repo.AppPref
 import kotlinx.coroutines.CoroutineScope
@@ -15,23 +16,25 @@ import kotlinx.coroutines.launch
 class HomePageViewModel : ViewModel() {
 
     private val _timeSetting = MutableLiveData<String>()
-    val timeSetting: LiveData<String> = _timeSetting
+    var timeSetting: LiveData<String> = _timeSetting
 
     private val _passSetting = MutableLiveData<String>()
-    val passSetting: LiveData<String> = _passSetting
+    var passSetting: LiveData<String> = _passSetting
 
     private val _finishScoreSetting = MutableLiveData<String>()
-    val finishScoreSetting: LiveData<String> = _finishScoreSetting
+    var finishScoreSetting: LiveData<String> = _finishScoreSetting
 
     private val _firstTeamSetting = MutableLiveData<String>()
-    val firstTeamSetting: LiveData<String> = _firstTeamSetting
+    var firstTeamSetting: LiveData<String> = _firstTeamSetting
 
     private val _teamOneSetting = MutableLiveData<String>()
-    val teamOneSetting: LiveData<String> = _teamOneSetting
+    var teamOneSetting: LiveData<String> = _teamOneSetting
 
 
     private val _teamTwoSetting = MutableLiveData<String>()
-    val teamTwoSetting: LiveData<String> = _teamTwoSetting
+    var teamTwoSetting: LiveData<String> = _teamTwoSetting
+
+
 
 
     fun loadSettings(appPref: AppPref) {
@@ -46,12 +49,10 @@ class HomePageViewModel : ViewModel() {
     }
 
     fun startButtonClicked(database: LocalDatabase) {
-        CoroutineScope(Dispatchers.IO).launch {
-            var cardList = database.cardsDao().getAllCards()
-            for(card in cardList){
-                Log.d("___", "startButtonClicked: ${card.word}")
-            }
-        }
+
+
+
+
 
         Log.d("___", "startButtonClicked: ")
 
@@ -61,36 +62,47 @@ class HomePageViewModel : ViewModel() {
     fun setTime(time: String,appPref: AppPref) {
         CoroutineScope(Dispatchers.Main).launch {
             appPref.saveTimeSetting(time)
+            loadSettings(appPref)
+
         }
     }
 
     fun setPassSetting(pass: String,appPref: AppPref) {
         CoroutineScope(Dispatchers.Main).launch {
             appPref.savePassSetting(pass)
+            loadSettings(appPref)
+
         }
     }
 
     fun setFinishScoreSetting(finishScore: String,appPref: AppPref) {
         CoroutineScope(Dispatchers.Main).launch {
             appPref.saveFinishScoreSetting(finishScore)
+            loadSettings(appPref)
+
         }
     }
 
     fun setFirstTeamSetting(firstTeam: String,appPref: AppPref) {
         CoroutineScope(Dispatchers.Main).launch {
             appPref.saveFirstTeamSetting(firstTeam)
+            loadSettings(appPref)
         }
     }
 
     fun setTeamOneSetting(teamOne: String,appPref: AppPref) {
         CoroutineScope(Dispatchers.Main).launch {
             appPref.saveTeamOneSetting(teamOne)
+            loadSettings(appPref)
+
         }
     }
 
         fun setTeamTwoSetting(teamTwo: String,appPref: AppPref) {
         CoroutineScope(Dispatchers.Main).launch {
             appPref.saveTeamTwoSetting(teamTwo)
+            loadSettings(appPref)
+
         }
     }
 
