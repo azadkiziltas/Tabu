@@ -116,7 +116,7 @@ class HomePageActivity : AppCompatActivity() {
             timeSetting.observe(this@HomePageActivity) { timeSetting ->
                 timeSetting?.let {
                     when (it) {
-                        "60" -> firsTeamToggleButtonListener(binding.button1)
+                        "5" -> firsTeamToggleButtonListener(binding.button1)
                         "90" -> firsTeamToggleButtonListener(binding.button2)
                         "120" -> firsTeamToggleButtonListener(binding.button3)
                     }
@@ -174,7 +174,7 @@ class HomePageActivity : AppCompatActivity() {
                     when (checkedId) {
                         R.id.button1 -> {
                             timeToggleButtonListener(button1)
-                            viewModel.setTime("60", appPref)
+                            viewModel.setTime("5", appPref)
 
                         }
 

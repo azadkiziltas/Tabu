@@ -31,7 +31,7 @@ class CounterViewModel(private val startingNumber: Int) : ViewModel() {
                 override fun run() {
                     count--
                     countLiveData.postValue(count)
-                    if (count == 0) {
+                    if (count == -1) {
                         stopTimer()
                     }
                 }
@@ -43,7 +43,7 @@ class CounterViewModel(private val startingNumber: Int) : ViewModel() {
                 override fun run() {
                     count--
                     countLiveData.postValue(count)
-                    if (count == 0) {
+                    if (count == -1) {
                         stopTimer()
                     }
                 }

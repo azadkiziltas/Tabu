@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -16,6 +15,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import repo.AppPref
+import ui.popup.ChangeTeamPopup
 import ui.popup.GamePausePopup
 import ui.popup.GameStartPopup
 
@@ -34,7 +34,7 @@ class GamePageActivity : AppCompatActivity() {
     private lateinit var teamTwoSetting: String
     val TAG = "___"
     private lateinit var counterViewModel: CounterViewModel
-
+    private var isPopupOpen = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,7 +63,6 @@ class GamePageActivity : AppCompatActivity() {
         counterViewModel = CounterViewModel(timeSetting.toInt())
 
 
-        Log.d("___", "onCreate: $timeSetting")
         setGameData(
             timeSetting,
             passSetting,
@@ -76,8 +75,10 @@ class GamePageActivity : AppCompatActivity() {
         viewModel.setCurrentTeam(firstTeamSetting)
         viewModel.setPassCount(passSetting.toInt())
 
+        viewModel.setTeamAPassCount(passSetting.toInt())
+        viewModel.setTeamBPassCount(passSetting.toInt())
 
-        Log.d("___", "onCreate: $firstTeamSetting")
+
         observeData()
         getNewTabuCard()
         buttonListeners()
@@ -88,8 +89,12 @@ class GamePageActivity : AppCompatActivity() {
             teamTwoSetting,
             object : GameStartPopup.OnButtonClickListener {
                 override fun onOkButtonClick() {
+                    if (firstTeamSetting.equals("1")) {
+                        viewModel.aPlayCount()
+                    } else {
+                        viewModel.bPlayCount()
+                    }
                     counterViewModel.startTimer()
-                    Log.d(TAG, "onOkButtonClick: ")
                 }
             })
         popup.show()
@@ -109,23 +114,28 @@ class GamePageActivity : AppCompatActivity() {
             viewModel.setGameState(false)
             pauseButton.setOnClickListener {
                 counterViewModel.pauseTimer()
-                val popup = GamePausePopup(this@GamePageActivity,
+                if (!isPopupOpen) {
+                    isPopupOpen = true
+                    val popup = GamePausePopup(this@GamePageActivity,
                         object : GamePausePopup.OnButtonClickListener {
                             override fun onOkButtonClick() {
                                 counterViewModel.resumeTimer()
                                 viewModel.setGameState(true)
+                                isPopupOpen = false
                             }
                         })
                     popup.show()
-                popup.setOnKeyListener { _, keyCode, _ ->
-                    if (keyCode == KeyEvent.KEYCODE_BACK) {
-                        counterViewModel.resumeTimer()
-                        popup.dismiss()
-                        true
-                    } else {
-                        false
+                    popup.setOnKeyListener { _, keyCode, _ ->
+                        if (keyCode == KeyEvent.KEYCODE_BACK) {
+                            counterViewModel.resumeTimer()
+                            popup.dismiss()
+                            true
+                        } else {
+                            false
+                        }
                     }
                 }
+
             }
             trueButton.setOnClickListener {
                 viewModel.getNewTabuCard(database)
@@ -136,10 +146,23 @@ class GamePageActivity : AppCompatActivity() {
                 viewModel.score(false)
             }
             passButtton.setOnClickListener {
-                if (viewModel.passCount.value!! > 0) {
-                    viewModel.getNewTabuCard(database)
-                    viewModel.setPassCount(viewModel.passCount.value!! - 1)
+                if (viewModel.currentTeam.value.equals("1")){
+                Log.d(TAG, "buttonListeners: A")
+                    if (viewModel.teamAPassCount.value!! > 0) {
+                        viewModel.getNewTabuCard(database)
+                        viewModel.setTeamAPassCount(viewModel.teamAPassCount.value!! - 1)
+
+                    }
                 }
+                else{
+                    Log.d(TAG, "buttonListeners: B")
+
+                    if (viewModel.teamBPassCount.value!! > 0) {
+                        viewModel.getNewTabuCard(database)
+                        viewModel.setTeamBPassCount(viewModel.teamBPassCount.value!! - 1)
+                    }
+                }
+
 
             }
         }
@@ -152,8 +175,12 @@ class GamePageActivity : AppCompatActivity() {
     private fun observeData() {
 
         counterViewModel.apply {
-                        getCount().observe(this@GamePageActivity, Observer { currentTime ->
+            getCount().observe(this@GamePageActivity, Observer { currentTime ->
+                if (currentTime == 0) {
+                    checkGameStatus()
+                }
                 binding.textViewTime.text = currentTime.toString()
+
 
                 if (currentTime < 10) {
                     binding.progressBar.progressDrawable =
@@ -164,10 +191,10 @@ class GamePageActivity : AppCompatActivity() {
 
                 }
 
+
                 binding.progressBar.progress =
                     (currentTime.toInt() * 100 / (timeSetting.toInt())).toInt()
 
-                Log.d("___", "onCreate: ${currentTime.toInt()}")
             })
         }
         viewModel.apply {
@@ -203,6 +230,87 @@ class GamePageActivity : AppCompatActivity() {
 
     }
 
+    private fun checkGameStatus() {
+        Log.d(TAG, "A: ${viewModel.teamAPlayCount.value}")
+        Log.d(TAG, "B: ${viewModel.teamBPlayCount.value}")
+
+
+        if (viewModel.teamAPlayCount.value!! > viewModel.teamBPlayCount.value!!) {
+            viewModel.bPlayCount()
+            changeTeam(false)
+            val popup = ChangeTeamPopup(this@GamePageActivity, viewModel.currentTeam.value!!,teamOneSetting,teamTwoSetting,object : GamePausePopup.OnButtonClickListener {
+                override fun onOkButtonClick() {
+                    counterViewModel.stopTimer()
+                    counterViewModel.startTimer()
+                }
+            })
+            popup.show()
+            popup.setOnKeyListener { _, keyCode, _ ->
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    counterViewModel.resumeTimer()
+                    popup.dismiss()
+                    true
+                } else {
+                    false
+                }
+            }
+
+        } else if (viewModel.teamAPlayCount.value!! < viewModel.teamBPlayCount.value!!) {
+            viewModel.aPlayCount()
+            changeTeam(true)
+            val popup = ChangeTeamPopup(this@GamePageActivity, viewModel.currentTeam.value!!,teamOneSetting,teamTwoSetting,object : GamePausePopup.OnButtonClickListener {
+                override fun onOkButtonClick() {
+                    counterViewModel.stopTimer()
+                    counterViewModel.startTimer()
+
+                }
+            })
+            popup.show()
+            popup.setOnKeyListener { _, keyCode, _ ->
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    counterViewModel.startTimer()
+                    popup.dismiss()
+                    true
+                } else {
+                    false
+                }
+            }
+        } else {
+            if ((viewModel.scoreTeamA.value!! > viewModel.scoreTeamB.value!!) && viewModel.scoreTeamA.value!! > finishScoreSetting.toInt()) {
+                Log.d(TAG, "checkGameStatus: TAKIM A KAZANDI")
+            } else if (viewModel.scoreTeamA.value!! < viewModel.scoreTeamB.value!! && viewModel.scoreTeamB.value!! > finishScoreSetting.toInt()) {
+                Log.d(TAG, "checkGameStatus: TAKIM B KAZANDI")
+
+            } else {
+                if (firstTeamSetting.equals("1")){
+                    viewModel.aPlayCount()
+                    changeTeam(true)
+                }
+                else{
+                    viewModel.bPlayCount()
+                    changeTeam(false)
+                }
+                val popup = ChangeTeamPopup(this@GamePageActivity, viewModel.currentTeam.value!!,teamOneSetting,teamTwoSetting,object : GamePausePopup.OnButtonClickListener {
+                    override fun onOkButtonClick() {
+                        counterViewModel.stopTimer()
+                        counterViewModel.startTimer()
+                    }
+                })
+                popup.show()
+                popup.setOnKeyListener { _, keyCode, _ ->
+                    if (keyCode == KeyEvent.KEYCODE_BACK) {
+                        counterViewModel.startTimer()
+                        popup.dismiss()
+                        true
+                    } else {
+                        false
+                    }
+                }
+            }
+
+        }
+    }
+
     private fun setGameData(
         timeSetting: String,
         passSetting: String,
@@ -221,17 +329,20 @@ class GamePageActivity : AppCompatActivity() {
             })
 
             if (firstTeamSetting.equals("1")) {
-                changeTeam("1")
+                changeTeam(true)
             } else {
-                changeTeam("2")
+                changeTeam(false)
 
             }
         }
 
     }
 
-    private fun changeTeam(currentTeam: String) {
-        if (currentTeam.equals("1")) {
+    private fun changeTeam(currentTeam: Boolean) {
+        if (currentTeam) {
+            viewModel.changeTeam()
+            binding.passButtton.text = "Pas (${viewModel.teamAPassCount.value})"
+
             binding.teamOneBackground.background =
                 getDrawable(R.drawable.top_corner_background_true_medium)
             binding.textViewScoreTeamA.setTextColor(getColor(R.color.trueColor))
@@ -239,6 +350,8 @@ class GamePageActivity : AppCompatActivity() {
                 getDrawable(R.drawable.top_corner_background_secondary_medium)
             binding.textViewScoreTeamB.setTextColor(getColor(R.color.secondary))
         } else {
+            binding.passButtton.text = "Pas (${viewModel.teamBPassCount.value})"
+            viewModel.changeTeam()
             binding.teamTwoBackground.background =
                 getDrawable(R.drawable.top_corner_background_true_medium)
             binding.textViewScoreTeamB.setTextColor(getColor(R.color.trueColor))

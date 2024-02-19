@@ -67,7 +67,7 @@ class AppPref(var context:Context) {
     }
     suspend fun getTeamOneSetting(): String {
         val p = context.ds.data.first()
-        return p[TEAM_ONE] ?: "KIRMIZI"
+        return p[TEAM_ONE] ?: "TAKIM A"
     }
 
 
@@ -78,7 +78,7 @@ class AppPref(var context:Context) {
     }
     suspend fun getTeamTwoSetting(): String {
         val p = context.ds.data.first()
-        return p[TEAM_TWO] ?: "MAVİ"
+        return p[TEAM_TWO] ?: "TAKIM B"
     }
 
 

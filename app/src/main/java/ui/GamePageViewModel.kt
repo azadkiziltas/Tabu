@@ -13,6 +13,11 @@ import kotlinx.coroutines.launch
 
 class GamePageViewModel : ViewModel() {
 
+    val teamAPlayCount = MutableLiveData<Int>(0)
+    val teamBPlayCount = MutableLiveData<Int>(0)
+
+
+
     private var cardList: MutableList<Card> = mutableListOf()
 
     private val _scoreTeamA = MutableLiveData<Int>(0)
@@ -30,6 +35,13 @@ class GamePageViewModel : ViewModel() {
     private val _currentTeam = MutableLiveData<String>()
     var currentTeam: LiveData<String> = _currentTeam
 
+
+    private val _teamAPassCount = MutableLiveData<Int>(3)
+    var teamAPassCount: LiveData<Int> = _teamAPassCount
+
+    private val _teamBPassCount = MutableLiveData<Int>(3)
+    var teamBPassCount: LiveData<Int> = _teamBPassCount
+
     private val _passCount = MutableLiveData<Int>()
     var passCount: LiveData<Int> = _passCount
 
@@ -45,11 +57,25 @@ class GamePageViewModel : ViewModel() {
 
     fun setCurrentTeam(currentTeam: String) {
         _currentTeam.value = currentTeam
+
     }
 
     fun setPassCount(passCount: Int) {
         _passCount.value = passCount
+
     }
+
+    fun setTeamAPassCount(passCount: Int) {
+        _teamAPassCount.value = passCount
+        _passCount.value = passCount
+    }
+
+    fun setTeamBPassCount(passCount: Int) {
+        _teamBPassCount.value = passCount
+        _passCount.value = passCount
+
+    }
+
 
 
 
@@ -86,7 +112,26 @@ class GamePageViewModel : ViewModel() {
             }
         }
 
+        Log.d(TAG, "currentTeam: ${currentTeam.value}")
 
+
+    }
+
+    fun changeTeam() {
+        if (currentTeam.value.equals("1")){
+            _currentTeam.value = "2"
+        }
+        else {
+            _currentTeam.value = "1"
+
+        }
+    }
+
+    fun aPlayCount() {
+        teamAPlayCount.value = teamAPlayCount.value!! + 1
+    }
+    fun bPlayCount() {
+        teamBPlayCount.value = teamBPlayCount.value!! + 1
     }
 
 }
