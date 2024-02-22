@@ -1,9 +1,10 @@
 package ui
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
+import android.util.AttributeSet
 import android.util.Log
-import android.view.KeyEvent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -16,6 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import repo.AppPref
 import ui.popup.ChangeTeamPopup
+import ui.popup.GameFinishPopup
 import ui.popup.GamePausePopup
 import ui.popup.GameStartPopup
 
@@ -36,17 +38,44 @@ class GamePageActivity : AppCompatActivity() {
     private lateinit var counterViewModel: CounterViewModel
     private var isPopupOpen = false
 
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        if (hasFocus) {
+            val popup = GameStartPopup(
+                this@GamePageActivity,
+                firstTeamSetting,
+                teamOneSetting,
+                teamTwoSetting,
+                object : GameStartPopup.OnButtonClickListener {
+                    override fun onStartButtonClick() {
+                        if (firstTeamSetting.equals("1")) {
+                            viewModel.aPlayCount()
+                        } else {
+                            viewModel.bPlayCount()
+                        }
+                        counterViewModel.startTimer()
+                    }
+
+
+                })
+            popup.showAtCenter()
+            getNewTabuCard()
+
+        }
+        
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityGameBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-
         val decorView = window.decorView
         val uiOptions = (View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 or View.SYSTEM_UI_FLAG_FULLSCREEN)
         decorView.systemUiVisibility = uiOptions
+
 
 
         database = LocalDatabase.accessLocalDatabase(this)!!
@@ -80,33 +109,11 @@ class GamePageActivity : AppCompatActivity() {
 
 
         observeData()
-        getNewTabuCard()
         buttonListeners()
-        val popup = GameStartPopup(
-            this,
-            firstTeamSetting,
-            teamOneSetting,
-            teamTwoSetting,
-            object : GameStartPopup.OnButtonClickListener {
-                override fun onOkButtonClick() {
-                    if (firstTeamSetting.equals("1")) {
-                        viewModel.aPlayCount()
-                    } else {
-                        viewModel.bPlayCount()
-                    }
-                    counterViewModel.startTimer()
-                }
-            })
-        popup.show()
-        popup.setOnKeyListener { _, keyCode, _ ->
-            if (keyCode == KeyEvent.KEYCODE_BACK) {
-                finish() // Aktiviteyi kapat
-                true
-            } else {
-                false
-            }
-        }
+
+
     }
+
 
     @SuppressLint("SuspiciousIndentation")
     private fun buttonListeners() {
@@ -123,17 +130,13 @@ class GamePageActivity : AppCompatActivity() {
                                 viewModel.setGameState(true)
                                 isPopupOpen = false
                             }
+
+                            override fun onHomePageButtonClick() {
+                                finish()
+                            }
                         })
-                    popup.show()
-                    popup.setOnKeyListener { _, keyCode, _ ->
-                        if (keyCode == KeyEvent.KEYCODE_BACK) {
-                            counterViewModel.resumeTimer()
-                            popup.dismiss()
-                            true
-                        } else {
-                            false
-                        }
-                    }
+                    popup.showAtCenter()
+
                 }
 
             }
@@ -146,15 +149,14 @@ class GamePageActivity : AppCompatActivity() {
                 viewModel.score(false)
             }
             passButtton.setOnClickListener {
-                if (viewModel.currentTeam.value.equals("1")){
-                Log.d(TAG, "buttonListeners: A")
+                if (viewModel.currentTeam.value.equals("1")) {
+                    Log.d(TAG, "buttonListeners: A")
                     if (viewModel.teamAPassCount.value!! > 0) {
                         viewModel.getNewTabuCard(database)
                         viewModel.setTeamAPassCount(viewModel.teamAPassCount.value!! - 1)
 
                     }
-                }
-                else{
+                } else {
                     Log.d(TAG, "buttonListeners: B")
 
                     if (viewModel.teamBPassCount.value!! > 0) {
@@ -212,7 +214,7 @@ class GamePageActivity : AppCompatActivity() {
 
             currentCard.observe(
                 this@GamePageActivity, Observer {
-                    binding.textViewWord.text = it.word + " - " + it.count
+                    binding.textViewWord.text = it.word
                     binding.textViewTabu1.text = it.tabu_1
                     binding.textViewTabu2.text = it.tabu_2
                     binding.textViewTabu3.text = it.tabu_3
@@ -238,77 +240,122 @@ class GamePageActivity : AppCompatActivity() {
         if (viewModel.teamAPlayCount.value!! > viewModel.teamBPlayCount.value!!) {
             viewModel.bPlayCount()
             changeTeam(false)
-            val popup = ChangeTeamPopup(this@GamePageActivity, viewModel.currentTeam.value!!,teamOneSetting,teamTwoSetting,object : GamePausePopup.OnButtonClickListener {
-                override fun onOkButtonClick() {
-                    counterViewModel.stopTimer()
-                    counterViewModel.startTimer()
-                }
-            })
-            popup.show()
-            popup.setOnKeyListener { _, keyCode, _ ->
-                if (keyCode == KeyEvent.KEYCODE_BACK) {
-                    counterViewModel.resumeTimer()
-                    popup.dismiss()
-                    true
-                } else {
-                    false
-                }
-            }
+
+            val popup = ChangeTeamPopup(
+                this@GamePageActivity,
+                viewModel.currentTeam.value!!,
+                teamOneSetting,
+                teamTwoSetting,
+                object : ChangeTeamPopup.OnButtonClickListener {
+                    override fun onStartButtonClick() {
+                        counterViewModel.stopTimer()
+                        viewModel.getNewTabuCard(database)
+                        counterViewModel.startTimer()
+                    }
+
+                })
+            popup.showAtCenter()
 
         } else if (viewModel.teamAPlayCount.value!! < viewModel.teamBPlayCount.value!!) {
             viewModel.aPlayCount()
             changeTeam(true)
-            val popup = ChangeTeamPopup(this@GamePageActivity, viewModel.currentTeam.value!!,teamOneSetting,teamTwoSetting,object : GamePausePopup.OnButtonClickListener {
-                override fun onOkButtonClick() {
-                    counterViewModel.stopTimer()
-                    counterViewModel.startTimer()
+            val popup = ChangeTeamPopup(
+                this@GamePageActivity,
+                viewModel.currentTeam.value!!,
+                teamOneSetting,
+                teamTwoSetting,
+                object : ChangeTeamPopup.OnButtonClickListener {
+                    override fun onStartButtonClick() {
+                        counterViewModel.stopTimer()
+                        viewModel.getNewTabuCard(database)
+                        counterViewModel.startTimer()
+                    }
 
-                }
-            })
-            popup.show()
-            popup.setOnKeyListener { _, keyCode, _ ->
-                if (keyCode == KeyEvent.KEYCODE_BACK) {
-                    counterViewModel.startTimer()
-                    popup.dismiss()
-                    true
-                } else {
-                    false
-                }
-            }
+                })
+            popup.showAtCenter()
+
         } else {
-            if ((viewModel.scoreTeamA.value!! > viewModel.scoreTeamB.value!!) && viewModel.scoreTeamA.value!! > finishScoreSetting.toInt()) {
+            if ((viewModel.scoreTeamA.value!! > viewModel.scoreTeamB.value!!) && viewModel.scoreTeamA.value!! >= finishScoreSetting.toInt()) {
                 Log.d(TAG, "checkGameStatus: TAKIM A KAZANDI")
-            } else if (viewModel.scoreTeamA.value!! < viewModel.scoreTeamB.value!! && viewModel.scoreTeamB.value!! > finishScoreSetting.toInt()) {
+
+
+                showGameFinishPopup(teamOneSetting)
+
+            } else if (viewModel.scoreTeamA.value!! < viewModel.scoreTeamB.value!! && viewModel.scoreTeamB.value!! >= finishScoreSetting.toInt()) {
                 Log.d(TAG, "checkGameStatus: TAKIM B KAZANDI")
 
+                showGameFinishPopup(teamTwoSetting)
+
+
             } else {
-                if (firstTeamSetting.equals("1")){
+                if (firstTeamSetting.equals("1")) {
                     viewModel.aPlayCount()
                     changeTeam(true)
-                }
-                else{
+                    viewModel.getNewTabuCard(database)
+
+                } else {
                     viewModel.bPlayCount()
                     changeTeam(false)
+                    viewModel.getNewTabuCard(database)
                 }
-                val popup = ChangeTeamPopup(this@GamePageActivity, viewModel.currentTeam.value!!,teamOneSetting,teamTwoSetting,object : GamePausePopup.OnButtonClickListener {
-                    override fun onOkButtonClick() {
-                        counterViewModel.stopTimer()
-                        counterViewModel.startTimer()
-                    }
-                })
-                popup.show()
-                popup.setOnKeyListener { _, keyCode, _ ->
-                    if (keyCode == KeyEvent.KEYCODE_BACK) {
-                        counterViewModel.startTimer()
-                        popup.dismiss()
-                        true
-                    } else {
-                        false
-                    }
-                }
+                val popup = ChangeTeamPopup(
+                    this@GamePageActivity,
+                    viewModel.currentTeam.value!!,
+                    teamOneSetting,
+                    teamTwoSetting,
+                    object : ChangeTeamPopup.OnButtonClickListener {
+                        override fun onStartButtonClick() {
+                            counterViewModel.stopTimer()
+                            counterViewModel.startTimer()
+                        }
+
+                    })
+                popup.showAtCenter()
+
             }
 
         }
+    }
+
+    private fun showGameFinishPopup(winnerTeam: String) {
+
+        val popup = GameFinishPopup(
+            this@GamePageActivity,
+            winnerTeam,
+            object : GameFinishPopup.OnButtonClickListener {
+                override fun onStartButtonClick() {
+                    viewModel.resetGame()
+                    firstTeamSetting = "2"
+                    viewModel.getNewTabuCard(database)
+                    val popup = GameStartPopup(
+                        this@GamePageActivity,
+                        firstTeamSetting,
+                        teamOneSetting,
+                        teamTwoSetting,
+                        object : GameStartPopup.OnButtonClickListener {
+                            override fun onStartButtonClick() {
+                                if (firstTeamSetting.equals("1")) {
+                                    viewModel.aPlayCount()
+                                } else {
+                                    viewModel.bPlayCount()
+                                }
+                                counterViewModel.startTimer()
+
+                            }
+
+
+                        })
+                    popup.showAtCenter()
+
+                }
+
+                override fun onHomePageButtonClick() {
+                    Log.d(TAG, "onHomePageButtonClick: ")
+                    finish()
+                }
+
+            })
+        popup.showAtCenter()
     }
 
     private fun setGameData(
@@ -327,12 +374,10 @@ class GamePageActivity : AppCompatActivity() {
             viewModel.passCount.observe(this@GamePageActivity, Observer {
                 passButtton.text = "Pas ($it)"
             })
-
             if (firstTeamSetting.equals("1")) {
                 changeTeam(true)
             } else {
                 changeTeam(false)
-
             }
         }
 

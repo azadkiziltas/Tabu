@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/transparent"
+    android:layout_height="match_parent"
+    >
 
     <RelativeLayout
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:padding="10dp"
+        >
         <RelativeLayout
             android:layout_alignParentTop="true"
             android:id="@+id/top"
@@ -31,30 +33,37 @@
                 android:textSize="36sp" />
 
         </RelativeLayout>
-        <RelativeLayout
-            android:layout_below="@+id/top"
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:background="@drawable/bottom_corner_medium"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/top"
+            android:background="@drawable/bottom_corner_medium">
 
             <TextView
+                android:id="@+id/textView2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_above="@+id/startButton"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/gameStartButton"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="60dp"
                 android:layout_marginEnd="30dp"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="60dp"
                 android:fontFamily="@font/protest"
-                android:text="Hazır Olduğunuzda butona tıklayın"
+                android:text="OYUNA BAŞLAMAK İÇİN HAZIR BUTONUNA BAS"
                 android:textAlignment="center"
                 android:textColor="@color/primary"
-                android:textSize="24sp">
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/gameStartButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
             </TextView>
 
+
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/startButton"
+                android:id="@+id/gameStartButton"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginStart="30dp"
@@ -62,20 +71,17 @@
                 android:layout_marginBottom="30dp"
                 android:background="@drawable/button_shape_secondary"
                 android:elevation="8dp"
-                android:layout_alignParentBottom="true"
                 android:fontFamily="@font/protest_guerrilla_regular"
-                android:text="HAZIRIM"
+                android:text="Hazır"
                 android:textColor="@color/primaryContainer3"
                 android:textSize="26sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintStart_toStartOf="parent" />
 
-            </androidx.appcompat.widget.AppCompatButton>
-
-        </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </RelativeLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

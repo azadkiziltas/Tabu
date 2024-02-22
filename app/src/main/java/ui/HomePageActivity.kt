@@ -1,12 +1,10 @@
 package ui
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
-import android.view.Window
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -27,14 +25,16 @@ class HomePageActivity : AppCompatActivity() {
     private lateinit var viewModel: HomePageViewModel
 
 
+
     val TAG = "___"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityHomePageBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+
 
 
         val decorView = window.decorView
@@ -93,7 +93,7 @@ class HomePageActivity : AppCompatActivity() {
 
             editText2.setOnKeyListener { _, keyCode, event ->
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
-                    val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                     inputMethodManager.hideSoftInputFromWindow(editText2.windowToken, 0)
                     editText2.clearFocus()
                     true
@@ -174,7 +174,7 @@ class HomePageActivity : AppCompatActivity() {
                     when (checkedId) {
                         R.id.button1 -> {
                             timeToggleButtonListener(button1)
-                            viewModel.setTime("5", appPref)
+                            viewModel.setTime("60", appPref)
 
                         }
 

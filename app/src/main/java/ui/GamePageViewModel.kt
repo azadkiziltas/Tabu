@@ -1,7 +1,5 @@
 package ui
-
 import android.util.Log
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,7 +18,7 @@ class GamePageViewModel : ViewModel() {
 
     private var cardList: MutableList<Card> = mutableListOf()
 
-    private val _scoreTeamA = MutableLiveData<Int>(0)
+    private var _scoreTeamA = MutableLiveData<Int>(0)
     var scoreTeamA: LiveData<Int> = _scoreTeamA
 
     private val _scoreTeamB = MutableLiveData<Int>(0)
@@ -113,8 +111,6 @@ class GamePageViewModel : ViewModel() {
         }
 
         Log.d(TAG, "currentTeam: ${currentTeam.value}")
-
-
     }
 
     fun changeTeam() {
@@ -132,6 +128,13 @@ class GamePageViewModel : ViewModel() {
     }
     fun bPlayCount() {
         teamBPlayCount.value = teamBPlayCount.value!! + 1
+    }
+
+    fun resetGame() {
+        _scoreTeamA.value = 0
+        _scoreTeamB.value = 0
+        teamAPlayCount.value = 0
+        teamBPlayCount.value = 0
     }
 
 }
