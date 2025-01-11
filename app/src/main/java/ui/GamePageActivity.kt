@@ -71,12 +71,6 @@ class GamePageActivity : AppCompatActivity() {
         binding = ActivityGameBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        val decorView = window.decorView
-        val uiOptions = (View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                or View.SYSTEM_UI_FLAG_FULLSCREEN)
-        decorView.systemUiVisibility = uiOptions
-
-
 
         database = LocalDatabase.accessLocalDatabase(this)!!
         viewModel = ViewModelProvider(this)[GamePageViewModel::class.java]

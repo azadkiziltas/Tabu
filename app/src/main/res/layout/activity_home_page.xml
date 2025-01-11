@@ -200,10 +200,10 @@
 
 
                         <TextView
-                            android:layout_alignParentStart="true"
                             android:layout_width="wrap_content"
-                            android:layout_centerVertical="true"
                             android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
                             android:layout_gravity="center_vertical"
                             android:layout_marginRight="10dp"
                             android:text="Pas Hakkı"
@@ -229,7 +229,7 @@
                                 android:layout_height="wrap_content"
                                 android:backgroundTint="@color/primaryContainer3"
                                 android:enabled="true"
-                                android:text="2"
+                                android:text="5"
                                 app:strokeColor="@color/md_theme_light_outlineVariant" />
 
                             <Button
@@ -239,7 +239,7 @@
                                 android:layout_height="wrap_content"
 
                                 android:backgroundTint="@color/primaryContainer3"
-                                android:text="3"
+                                android:text="10"
                                 app:strokeColor="@color/md_theme_light_outlineVariant" />
 
                             <Button
@@ -249,7 +249,7 @@
                                 android:layout_height="wrap_content"
 
                                 android:backgroundTint="@color/primaryContainer3"
-                                android:text="6"
+                                android:text="15"
                                 app:strokeColor="@color/md_theme_light_outlineVariant" />
 
 

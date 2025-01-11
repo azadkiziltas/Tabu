@@ -37,10 +37,7 @@ class HomePageActivity : AppCompatActivity() {
 
 
 
-        val decorView = window.decorView
-        val uiOptions = (View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                or View.SYSTEM_UI_FLAG_FULLSCREEN)
-        decorView.systemUiVisibility = uiOptions
+
 
 
         database = LocalDatabase.accessLocalDatabase(this)!!
@@ -125,9 +122,9 @@ class HomePageActivity : AppCompatActivity() {
             passSetting.observe(this@HomePageActivity) { passSetting ->
                 passSetting?.let {
                     when (it) {
-                        "2" -> firsTeamToggleButtonListener(binding.button4)
-                        "3" -> firsTeamToggleButtonListener(binding.button5)
-                        "6" -> firsTeamToggleButtonListener(binding.button6)
+                        "5" -> firsTeamToggleButtonListener(binding.button4)
+                        "10" -> firsTeamToggleButtonListener(binding.button5)
+                        "15" -> firsTeamToggleButtonListener(binding.button6)
                     }
                 }
             }
@@ -199,20 +196,20 @@ class HomePageActivity : AppCompatActivity() {
                     when (checkedId) {
                         R.id.button4 -> {
                             passToggleButtonListener(button4)
-                            viewModel.setPassSetting("2", appPref)
+                            viewModel.setPassSetting("5", appPref)
 
                         }
 
                         R.id.button5 -> {
                             passToggleButtonListener(button5)
-                            viewModel.setPassSetting("3", appPref)
+                            viewModel.setPassSetting("10", appPref)
 
 
                         }
 
                         R.id.button6 -> {
                             passToggleButtonListener(button6)
-                            viewModel.setPassSetting("6", appPref)
+                            viewModel.setPassSetting("15", appPref)
 
 
                         }

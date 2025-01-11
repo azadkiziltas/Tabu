@@ -48,21 +48,21 @@ class HomePageViewModel : ViewModel() {
         }
     }
 
-    fun startButtonClicked(database: LocalDatabase) {
 
 
 
 
 
-        Log.d("___", "startButtonClicked: ")
 
-    }
+
+
+
 
 
     fun setTime(time: String,appPref: AppPref) {
         CoroutineScope(Dispatchers.Main).launch {
             appPref.saveTimeSetting(time)
-            loadSettings(appPref)
+            _timeSetting.value = appPref.getTimeSetting()
 
         }
     }
@@ -70,7 +70,7 @@ class HomePageViewModel : ViewModel() {
     fun setPassSetting(pass: String,appPref: AppPref) {
         CoroutineScope(Dispatchers.Main).launch {
             appPref.savePassSetting(pass)
-            loadSettings(appPref)
+            _passSetting.value = appPref.getPassSetting()
 
         }
     }
@@ -78,7 +78,7 @@ class HomePageViewModel : ViewModel() {
     fun setFinishScoreSetting(finishScore: String,appPref: AppPref) {
         CoroutineScope(Dispatchers.Main).launch {
             appPref.saveFinishScoreSetting(finishScore)
-            loadSettings(appPref)
+            _finishScoreSetting.value = appPref.getFinishScoreSetting()
 
         }
     }
@@ -86,14 +86,14 @@ class HomePageViewModel : ViewModel() {
     fun setFirstTeamSetting(firstTeam: String,appPref: AppPref) {
         CoroutineScope(Dispatchers.Main).launch {
             appPref.saveFirstTeamSetting(firstTeam)
-            loadSettings(appPref)
+            _firstTeamSetting.value = appPref.getFirstTeamSetting()
         }
     }
 
     fun setTeamOneSetting(teamOne: String,appPref: AppPref) {
         CoroutineScope(Dispatchers.Main).launch {
             appPref.saveTeamOneSetting(teamOne)
-            loadSettings(appPref)
+            _teamOneSetting.value = appPref.getTeamOneSetting()
 
         }
     }
@@ -101,7 +101,7 @@ class HomePageViewModel : ViewModel() {
         fun setTeamTwoSetting(teamTwo: String,appPref: AppPref) {
         CoroutineScope(Dispatchers.Main).launch {
             appPref.saveTeamTwoSetting(teamTwo)
-            loadSettings(appPref)
+            _teamTwoSetting.value = appPref.getTeamTwoSetting()
 
         }
     }
