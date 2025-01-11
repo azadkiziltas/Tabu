@@ -36,7 +36,7 @@ The app follows the **MVVM (Model-View-ViewModel)** architectural pattern, ensur
 
 1. Clone this repository:
     ```bash
-    git clone https://github.com/azadkiziltas/Tabu.git
+    git clone https://github.com/azadkiziltas/TabuAppAndroid.git
     ```
 2. Open the project in Android Studio.
 3. Sync Gradle and run the app on a device.
