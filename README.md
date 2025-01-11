@@ -28,9 +28,18 @@ The app follows the **MVVM (Model-View-ViewModel)** architectural pattern, ensur
 
 ## Screenshots
 
-| Home Screen                | Game Screen                |
-|----------------------------|----------------------------|
-| ![Home Screen](screenshots/home.png) | ![Game Screen](screenshots/game.png) |
+<table>
+  <tr>
+    <th>Home Screen</th>
+    <th>Game Screen</th>
+    <th>Gif</th>
+  </tr>
+  <tr>
+    <td><img src="screenshots/home.png" style="width: 300px;" alt="Home Screen" /></td>
+    <td><img src="screenshots/game.png" style="width: 300px;" alt="Game Screen" /></td>
+    <td><img src="screenshots/tabu.gif" style="width: 285px;" alt="Gif" /></td>
+  </tr>
+</table>
 
 ## Setup
 
